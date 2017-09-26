@@ -11,8 +11,8 @@ export  class DirWatcher extends EventEmitter {
         if (path) {
             setInterval(() => fs.readdir(path, (err, files) => {
                 if (files.toString() !== this.previousFiles.toString()) {
-                    const newFiles = files.forEach(file => !this.previousFiles.includes(file)? this.emit('dirwatcher:changed', file): null);
-                   // console.log(newFiles)
+                    const newFiles = files.filter(file => !this.previousFiles.includes(file));
+                    newFiles.forEach(file =>  this.emit('dirwatcher:changed', file));
                     this.previousFiles = files;
                 }
             }), delay);
