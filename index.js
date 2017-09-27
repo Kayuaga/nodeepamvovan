@@ -1,5 +1,9 @@
-const {User,Product} = require('./model'),
-    {name} = require('./config/config.json')
-let user = new User(''),
-    product = new Product();
-console.log(name)
+const fs = require('fs');
+import {DirWatcher} from './dirwatcher/dirwatcher.js';
+import {Importer} from './importer/importer.js'
+const dw = new DirWatcher(),
+    importer = new Importer('./hw2.mock.data');
+importer.import('./hw2.mock.data/MOCK_DATA (1).csv').then(data => {
+    console.log(data);
+})
+
