@@ -3,9 +3,9 @@ import fs from 'fs'
 import csv from 'node-csv';
 import EventEmitter from 'events'
 import {DirWatcher} from '../dirwatcher/dirwatcher.js';
-const filterCVS = (path) => {
+export const filterCVS = (file) => {
     return new Promise((resolve,reject)=>{
-        csv.createParser().parseFile(path, (err, data) => {
+        csv.createParser().parse(file, (err, data) => {
             if (err) {
                 return reject(err)
             }
