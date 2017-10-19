@@ -4,7 +4,7 @@
   "description": "this is training project that hacks pentagon servers",
   "main": "index.js",
   "scripts": {
-    "start": "babel-node index.js --presets es2015,stage-2",
+    "start": "babel-node --presets es2015,stage-2 ./utils/streams.js ",
     "start1": "nodemon index.js  --exec 'babel-node index.js --presets es2015,stage-2'",
     "test": "",
     "build": "babel src -d dist"
@@ -31,6 +31,9 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "babel-register": "^6.26.0",
-    "nodemon": "^1.12.1"
+    "commander": "^2.11.0",
+    "nodemon": "^1.12.1",
+    "through2": "^2.0.3",
+    "xml2js": "^0.4.19"
   }
 }
