@@ -15,14 +15,15 @@ program
   })
   .parse(process.argv);
 
-program.on('--help', () =>
+program.on('--help', () =>{
   console.log(`
     $ ./streams --action=io --file=MOCK_DATA.csv
     $ ./streams --action=transform-file --file=MOCK_DATA.csv
     $ ./streams -a io -f MOCK_DATA.csv
     $ ./streams --help
     $ ./streams -h
-             `));
+             `);
+});
 
 
 if (actionItem || fileItem) {

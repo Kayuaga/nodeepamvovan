@@ -1,5 +1,3 @@
-//const fs = require('fs');
-import {DirWatcher} from './dirwatcher/dirwatcher.js';
-import {Importer} from './importer/importer.js'
-import {comandLine} from './utils/streams.js'
-
+import app from './app';
+const port = process.env.PORT || 8080;
+app.listen(port, () => console.log(`App listening on port ${port}!`));
