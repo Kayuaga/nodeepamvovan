@@ -34,6 +34,7 @@
     "commander": "^2.11.0",
     "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
+    "express": "^4.16.2",
     "nodemon": "^1.12.1",
     "through2": "^2.0.3",
     "xml2js": "^0.4.19"
