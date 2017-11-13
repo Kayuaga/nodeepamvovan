@@ -1,9 +1,9 @@
 import express from 'express';
 import productRoute from './productRoutes';
-import userRoute from './userRouteRoutes';
+import userRoute from './userRoute';
 
 const apiRouter = express.Router();
-app.use('/api/products',productRoute);
-app.use('/api/users',userRoute);
+apiRouter.use('/products',productRoute);
+apiRouter.use('/users',userRoute);
 
 export default apiRouter;

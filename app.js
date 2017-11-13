@@ -9,6 +9,7 @@ import apiRouter from './routes/apiRouter'
 import authRoute from './routes/authRoutes';
 import session  from 'express-session';
 import passport from 'passport';
+import { GoogleStrategy }  from './routes/googleStatagy'
 
 
 const productMap = new Map();
@@ -24,6 +25,7 @@ const product = {
 productMap.set(id,product);
 
 const app = express();
+app.use(express.static('./static'));
 app.use(cookieParser());
 app.use(cookies);
 app.use(queryParser);
@@ -31,22 +33,21 @@ app.use(bodyParser.json());
 app.use(session({ secret: '1q2w3e4r5t', resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
+
 passport.use(passportLocal);
-
-passport.serializeUser(function(user, done) {
-    done(null, user.login);
+passport.use( GoogleStrategy);
+passport.serializeUser((user, done) => {
+    done(null, user);
+});
+passport.deserializeUser((user, done) => {
+    done(null, user);
 });
 
-passport.deserializeUser(function(login, done) {
-    done(null, {login, password: 'password'});
-});
+app.get('/auth/google',
+    passport.authenticate('google',{scope: 'https://www.googleapis.com/auth/plus.login'}),(req,res)=>{
+    });
 
 app.post('/auth', passport.authenticate('local'), (req, res) => { res.json(req.user)});
-
-app.get('/',(req,res)=>{
-    console.log(req.parsedCoockie)
-    console.log(req.parsedQuery);
-})
 
 app.use('/api',authMiddle,apiRouter);
 

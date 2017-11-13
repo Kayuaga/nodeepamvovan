@@ -24,7 +24,8 @@
   "homepage": "https://github.com/Kayuaga/nodeepamvovan#readme",
   "dependencies": {
     "babel": "^6.23.0",
-    "node-csv": "^0.1.2"
+    "node-csv": "^0.1.2",
+    "passport-google": "^0.3.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -40,6 +41,8 @@
     "jsonwebtoken": "^8.1.0",
     "nodemon": "^1.12.1",
     "passport": "^0.4.0",
+    "passport-google-oauth": "^1.0.0",
+    "passport-google-oauth2": "^0.1.6",
     "passport-local": "^1.0.0",
     "through2": "^2.0.3",
     "xml2js": "^0.4.19"
