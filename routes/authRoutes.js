@@ -1,18 +1,12 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import { SECRET_WORD } from '../config/config.json'
+import { users } from '../config/users';
 
 const authRoute = express.Router();
 const USER_NOT_FOUND = 'Authentication failed. User not found.';
 const PASS_NOT_FOUND = 'Authentication failed. Password is wrong.'
-const MESSAGE = 'Succes!'
-const users = {
-    'v@v.com': {
-        name: 'Vovan',
-        password: '1234'
-    }
-
-};
+const MESSAGE = 'Succes!';
 
 authRoute.post('/auth', (req, res) => {
     const email = req.body.email;
