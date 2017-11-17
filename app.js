@@ -9,20 +9,20 @@ import apiRouter from './routes/apiRouter'
 import authRoute from './routes/authRoutes';
 import session  from 'express-session';
 import passport from 'passport';
-import { GoogleStrategy }  from './routes/googleStatagy'
+import GoogleStrategy from './routes/googleStatagy'
 
 
 const productMap = new Map();
-let id =1 ;
+let id = 1;
 const product = {
     name: 'Supreme T-Shirt', brand: 'Supreme',
     price: 99.99,
     options: [
-        { color: 'blue' },
-        { size: 'XL' } ]
+        {color: 'blue'},
+        {size: 'XL'}]
 }
 
-productMap.set(id,product);
+productMap.set(id, product);
 
 const app = express();
 app.use(express.static('./static'));
@@ -30,12 +30,12 @@ app.use(cookieParser());
 app.use(cookies);
 app.use(queryParser);
 app.use(bodyParser.json());
-app.use(session({ secret: '1q2w3e4r5t', resave: true, saveUninitialized: true }));
+app.use(session({secret: '1q2w3e4r5t', resave: true, saveUninitialized: true}));
 app.use(passport.initialize());
 app.use(passport.session());
 
 passport.use(passportLocal);
-passport.use( GoogleStrategy);
+passport.use(GoogleStrategy);
 passport.serializeUser((user, done) => {
     done(null, user);
 });
@@ -44,11 +44,13 @@ passport.deserializeUser((user, done) => {
 });
 
 app.get('/auth/google',
-    passport.authenticate('google',{scope: 'https://www.googleapis.com/auth/plus.login'}),(req,res)=>{
+    passport.authenticate('google', {scope: 'https://www.googleapis.com/auth/plus.login'}), (req, res) => {
     });
 
-app.post('/auth', passport.authenticate('local'), (req, res) => { res.json(req.user)});
+app.post('/auth', passport.authenticate('local'), (req, res) => {
+    res.json(req.user)
+});
 
-app.use('/api',authMiddle,apiRouter);
+app.use('/api', authMiddle, apiRouter);
 
 export default  app;

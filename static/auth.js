@@ -7,7 +7,7 @@ headers.append('content-type', 'application/json');
 loginbtn.addEventListener('click', evt => {
     const password = passwordinp.value;
     const login = logininp.value;
-    fetch('/auth/google', {method: 'GET',headers, credentials: 'include', body: JSON.stringify({email:login, password})}).then(render).catch(() => lastresponce.innerHTML = 'wrong credential');
+    fetch('/auth', {method: 'POST',headers, credentials: 'include', body: JSON.stringify({email:login, password})}).then(render).catch(() => lastresponce.innerHTML = 'wrong credential');
 });
 
 getproducts.addEventListener('click', evt => {
