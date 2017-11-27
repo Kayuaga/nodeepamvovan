@@ -1,28 +1,10 @@
-import express from 'express'
+import express from 'express';
+import UsersController from '../controllers/usersController';
 
-const userRoute = express.Router();
-const userMap = new Map();
-let id = 1;
-const product = {
-    name: 'Batska Andrei',
-    title:'boss'
-};
-userMap.set(id,product)
+const controller = new UsersController();
+const usersRouter = express.Router({mergeParams: true});
 
-
-userRoute.get('/', (req, res) => {
-    res.send(userMap)
-});
-
-userRoute.get('/:id', (req, res) => {
-    res.send(userMap.get(Number(req.params.id)) || {});
-});
-
-userRoute.post('/', (req, res) => {
-    id += 1;
-    userMap.set(id, (req.body));
-    res.send(userMap);
-});
-
+usersRouter.get('/', controller.getUsers);
+usersRouter.delete('/:id', controller.deleteUser);
 
 export default userRoute;

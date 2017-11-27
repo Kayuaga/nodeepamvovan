@@ -43,6 +43,8 @@
     "express-qs-parser": "0.0.1",
     "express-session": "^1.15.6",
     "jsonwebtoken": "^8.1.0",
+    "mongodb": "^2.2.33",
+    "mongoose": "^4.13.5",
     "nodemon": "^1.12.1",
     "passport": "^0.4.0",
     "passport-google-oauth": "^1.0.0",
