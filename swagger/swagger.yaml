@@ -1,0 +1,376 @@
+---
+swagger: "2.0"
+info:
+  description: "This is a training NodeJS server.\n"
+  version: "1.0.0"
+  title: "Swagger NodeJS-training"
+  contact:
+    email: "to.polyakov.vova@gmail.com"
+host: localhost:10010
+basePath: /
+tags:
+- name: "products"
+  description: "Access to product collection"
+- name: "users"
+  description: "Access to user collection"
+- name: "cities"
+  description: "Access to city collection"
+schemes:
+- "https"
+- "http"
+paths:
+  /products:
+    x-swagger-router-controller: swagger-controller
+    get:
+      tags:
+      - "products"
+      summary: "Return All products"
+      operationId: "getAllProducts"
+      parameters: []
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Product"
+        500:
+          description: "server error"
+    post:
+      tags:
+      - "products"
+      summary: "Add new product and return it"
+      operationId: "addProduct"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Product object that needs to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/Product"
+      responses:
+        200:
+          description: "successful object creation"
+          schema:
+            $ref: "#/definitions/Product"
+        500:
+          description: "server error"
+  /products/{productId}:
+    x-swagger-router-controller: swagger-controller
+    get:
+      tags:
+      - "products"
+      summary: "Return single product"
+      operationId: "getProductById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "productId"
+        in: "path"
+        description: "ID of product to return"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "succesful operation"
+          schema:
+            $ref: "#/definitions/Product"
+        500:
+          description: "server error"
+    delete:
+      tags:
+      - "products"
+      summary: "Deletes a product by ID"
+      operationId: "deleteProductById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "productId"
+        in: "path"
+        description: "ID of product to delete"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/inline_response_200"
+        500:
+          description: "server error"
+  /products/{productId}/reviews:
+    x-swagger-router-controller: swagger-controller
+    get:
+      tags:
+      - "products"
+      summary: "Return reviews of the single product"
+      operationId: "getProductReviewsById"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "productId"
+        in: "path"
+        description: "ID of product to return reviews"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "succesful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Review"
+        500:
+          description: "server error"
+  /users:
+    x-swagger-router-controller: swagger-controller
+    get:
+      tags:
+      - "users"
+      summary: "Return All users"
+      operationId: "getAllUsers"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/User"
+        500:
+          description: "server error"
+  /users/{userId}:
+    x-swagger-router-controller: swagger-controller
+    delete:
+      tags:
+      - "users"
+      summary: "Deletes a user by ID"
+      operationId: "deleteUserById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userId"
+        in: "path"
+        description: "ID of user to delete"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/inline_response_200"
+        500:
+          description: "server error"
+  /cities:
+    x-swagger-router-controller: swagger-controller
+    get:
+      tags:
+      - "cities"
+      summary: "Return ALL cities"
+      operationId: "getAllCities"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/City"
+        500:
+          description: "server error"
+    post:
+      tags:
+      - "cities"
+      summary: "Add new city and return it"
+      operationId: "addCity"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "City object that needs to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/City"
+      responses:
+        200:
+          description: "successful object creation"
+          schema:
+            $ref: "#/definitions/City"
+        500:
+          description: "server error"
+  /cities/{cityId}:
+    x-swagger-router-controller: swagger-controller
+    put:
+      tags:
+      - "cities"
+      summary: "Update an existing city or create new"
+      operationId: "updateOrCreateCity"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "cityId"
+        in: "path"
+        description: "ID of city to update"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "City object that needs to be updated"
+        required: true
+        schema:
+          $ref: "#/definitions/City"
+      responses:
+        200:
+          description: "successful object updating"
+          schema:
+            $ref: "#/definitions/inline_response_200"
+        500:
+          description: "server error"
+    delete:
+      tags:
+      - "cities"
+      summary: "Deletes a city by ID"
+      operationId: "deleteCityById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "cityId"
+        in: "path"
+        description: "ID of city to delete"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/inline_response_200"
+        500:
+          description: "server error"
+definitions:
+  Product:
+    type: "object"
+    required:
+    - "title"
+    properties:
+      _id:
+        type: "string"
+      title:
+        type: "string"
+        example: "test product"
+      reviews:
+        type: "array"
+        items:
+          $ref: "#/definitions/Review"
+    example:
+      reviews:
+      - title: "first reviewer"
+        mark: 6
+      - title: "first reviewer"
+        mark: 6
+      id: 0
+      title: "test product"
+  Review:
+    type: "object"
+    required:
+    - "mark"
+    - "title"
+    properties:
+      title:
+        type: "string"
+        example: "first reviewer"
+      mark:
+        type: "integer"
+        format: "int64"
+    example:
+      title: "first reviewer"
+      mark: 6
+  User:
+    type: "object"
+    required:
+    - "username"
+    properties:
+      _id:
+        type: "string"
+      username:
+        type: "string"
+        example: "Anton Bely"
+      login:
+        type: "string"
+      password:
+        type: "string"
+      authStrategy:
+        type:
+        - "string"
+        - "null"
+      authId:
+        type:
+        - "string"
+        - "null"
+    example:
+      password: "password"
+      authStrategy: "authStrategy"
+      id: 0
+      login: "login"
+      authId: "authId"
+      username: "Anton Bely"
+  City:
+    type: "object"
+    required:
+    - "capital"
+    - "country"
+    - "name"
+    properties:
+      _id:
+        type: "string"
+      name:
+        type: "string"
+      country:
+        type: "string"
+      capital:
+        type: "boolean"
+      location:
+        $ref: "#/definitions/City_location"
+    example:
+      country: "country"
+      capital: true
+      name: "name"
+      location:
+        x: 6
+        y: 1
+      id: 0
+  inline_response_200:
+    properties:
+      success:
+        type: "boolean"
+        example: "true"
+  City_location:
+    required:
+    - "x"
+    - "y"
+    properties:
+      x:
+        type: "integer"
+        format: "int64"
+      y:
+        type: "integer"
+        format: "int64"
+    example:
+      x: 6
+      y: 1
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
